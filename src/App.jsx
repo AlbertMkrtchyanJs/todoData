@@ -20,17 +20,32 @@ const create = () => {
     },
     body : JSON.stringify({title: text, complated : false})
   })
-  .then((res)=> res.json)
+  .then((res)=> res.json())
   .then((res) => setData([res,...data]))
 }
 
-const remove= (id)=>{
-  fetch(`https://jsonplaceholder.typicode.com/todos${id}`,{
-    method: 'DELETE'
-  })
-  .then((res) => res.json())
-  .then((res) => console.log(res))
-}
+// const remove= (id) =>{
+//   fetch(`https://jsonplaceholder.typicode.com/todos/${id}`,{
+//     method: 'DELETE',
+//     headers:{
+//       'content-type' : 'application/json'
+//     }
+//   })
+//   .then((res) => res.json())
+//   .then((res) => setData(data => data.filter(()=> res.id !== id)))
+  
+// }
+
+// const complated = ({id,completed}) => {
+//   fetch(`https://jsonplaceholder.typicode.com/todos/${id}`,{
+//     method: 'PATCH',
+//     headers:{
+//       'content-type' : 'application/json'
+//     },
+//     body: JSON.stringify({completed: !completed})
+//   }) .then((res)=> res.json())
+//   .then((data)=> {setData((data)=> data.map((el)=> el.id === id? {...el,completed : data.completed}: el))})
+// }
 
   return (
     <div>
@@ -38,7 +53,7 @@ const remove= (id)=>{
       <button onClick={create}>+</button>
     {data.map((el)=>{
       return <li key={el.id}>
-        <input type={"checkbox"} />
+        <input type={"checkbox"} checked={el.completed} onChange={()=> complated(el)}/>
        <span>
         {el.title}
         </span>
