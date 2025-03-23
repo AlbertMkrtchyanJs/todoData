@@ -1,9 +1,14 @@
-import React from 'react'
-import { useSelector } from 'react-redux'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { createTC } from '../../store/reducers/createReducer'
+
+
 
 const Box = () => {
-
+const dispatch = useDispatch() 
+ 
  const {isFetching} = useSelector((state)=> state.todoState)
+ const {data} = useSelector(state => state.completedState)
 
     const remove= (id) =>{
   fetch(`https://jsonplaceholder.typicode.com/todos/${id}`,{
@@ -17,23 +22,17 @@ const Box = () => {
   
 }
 
-const complated = ({id,completed}) => {
-  fetch(`https://jsonplaceholder.typicode.com/todos/${id}`,{
-    method: 'PATCH',
-    headers:{
-      'content-type' : 'application/json'
-    },
-    body: JSON.stringify({completed: !completed})
-  }) .then((res)=> res.json())
-  .then((res)=> props.setData([res]))
-}
+
+  const create = useEffect(()=>{
+    dispatch(createTC())
+  })
 
   return (
     <div> {
       isFetching ? <h1>Loading...</h1> : 
       data.map((el)=>{
         return <li key={el.id}>
-          <input type={"checkbox"} checked={el.completed} onChange={()=> complated(el)}/>
+          <input type={"checkbox"} checked={el.completed} onChange={()=> create(el)}/>
          <span>
           {el.title}
           </span>
