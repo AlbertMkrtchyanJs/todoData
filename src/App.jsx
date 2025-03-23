@@ -3,16 +3,17 @@ import { useEffect, useState } from 'react'
 import './App.css'
 import Input from './components/Input/Input'
 import Box from './components/Box/Box'
+import { useDispatch, useSelector } from 'react-redux'
+import { addTodoTC} from './store/reducers/todoReducer'
 
 
 function App() {
-  const[data,setData] = useState([])
+  const {todos ,text} = useSelector((state)=>state.todoState)
+ const dispatch = useDispatch()
  
 
   useEffect(()=>{
-  fetch('https://jsonplaceholder.typicode.com/todos?_limit=15')
-  .then((res)=> res.json())
-  .then((res)=> setData(res))
+   dispatch(addTodoTC())
 },[])
 
 
@@ -21,8 +22,9 @@ function App() {
 
   return (
     <div>
-      <Input setData ={setData} data ={data}/>
-    <Box setData ={setData} data ={data}/>
+      
+      <Input />
+    <Box />
     </div>
   )
 }

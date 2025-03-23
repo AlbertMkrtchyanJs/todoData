@@ -1,6 +1,9 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 
-const Box = (props) => {
+const Box = () => {
+
+ const {isFetching} = useSelector((state)=> state.todoState)
 
     const remove= (id) =>{
   fetch(`https://jsonplaceholder.typicode.com/todos/${id}`,{
@@ -26,7 +29,9 @@ const complated = ({id,completed}) => {
 }
 
   return (
-    <div> {props.data.map((el)=>{
+    <div> {
+      isFetching ? <h1>Loading...</h1> : 
+      data.map((el)=>{
         return <li key={el.id}>
           <input type={"checkbox"} checked={el.completed} onChange={()=> complated(el)}/>
          <span>

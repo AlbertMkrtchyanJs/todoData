@@ -1,24 +1,21 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { createTC } from '../../store/reducers/createReducer'
 
 
-const Input = (props) => {
+const Input = () => {
 
-   const[text,setText] = useState('')
+const dispatch = useDispatch()
 
-  const create = () => {
-    fetch('https://jsonplaceholder.typicode.com/todos',{
-      method : "POST",
-      headers:{
-        'content-type' : 'application/json'
-      },
-      body : JSON.stringify({title: text, complated : false})
-    })
-    .then((res)=> res.json())
-    .then((res) => props.setData([res,...props.data]),setText(''))
-  }
+const {text} = useSelector(state => state.createState)
+
+  const create = useEffect(()=>{
+    dispatch(createTC())
+  })
+  
   return (
     <div> 
-       <input value={text} onChange={(e)=> setText(e.target.value)} />
+       <input value={text} onChange={(e)=> dispatch(e.target.value)} />
       <button onClick={create}>+</button>
       </div>
   )
