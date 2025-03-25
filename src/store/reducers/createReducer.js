@@ -13,7 +13,7 @@ const createReducer =(state = initState,action) => {
         case CREATE:
             return {
                 ...state,
-                text: action.payload 
+                text: action.payload
             } 
             case UPDATE_TEXT:
                 return{

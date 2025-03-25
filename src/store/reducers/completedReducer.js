@@ -9,6 +9,8 @@ const initState = {
 const completedReducer =(state = initState,action) => {
     switch(action.type){
         case CHANGE:
+            console.log(action.payload);
+            
             return {
                 ...state,
                 data: action.payload 
