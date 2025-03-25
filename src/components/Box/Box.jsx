@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { createTC } from '../../store/reducers/createReducer'
+import { deleteTC } from '../../store/reducers/removeReducer'
 
 
 
@@ -10,16 +11,8 @@ const dispatch = useDispatch()
  const {isFetching} = useSelector((state)=> state.todoState)
  const {data} = useSelector(state => state.completedState)
 
-    const remove= (id) =>{
-  fetch(`https://jsonplaceholder.typicode.com/todos/${id}`,{
-    method: 'DELETE',
-    headers:{
-      'content-type' : 'application/json'
-    }
-  })
-  .then((res) => res.json())
-  .then((res) => props.setData( props.data.filter((data)=> data.id !== id)))
-  
+    const remove= () =>{
+    dispatch(deleteTC())
 }
 
 
@@ -36,7 +29,7 @@ const dispatch = useDispatch()
          <span>
           {el.title}
           </span>
-          <button onClick={()=> remove(el.id)}>X</button>
+          <button onClick={ remove()}>X</button>
         </li>
       })}</div>
   )

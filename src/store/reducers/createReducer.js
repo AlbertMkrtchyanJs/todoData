@@ -1,9 +1,11 @@
 import { API } from "../../api/api"
 
 const CREATE = 'create'
+const UPDATE_TEXT = 'upd-text'
 
 const initState = {
-    text: ''
+    text: '',
+    createState: ''
 }
 
 const createReducer =(state = initState,action) => {
@@ -13,6 +15,11 @@ const createReducer =(state = initState,action) => {
                 ...state,
                 text: action.payload 
             } 
+            case UPDATE_TEXT:
+                return{
+                    ...state,
+                    createState : action.payload
+                }
         default :
             return state    
     }
@@ -26,5 +33,6 @@ export const createTC = () => {
 }
 
 const createAC = (text) => ({type: CREATE, payload: text})
+export const updateAC = (val) => ({type: UPDATE_TEXT,payload:val})
 
 export default createReducer

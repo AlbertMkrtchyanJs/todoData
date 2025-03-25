@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { createTC } from '../../store/reducers/createReducer'
+import { createTC, updateAC } from '../../store/reducers/createReducer'
 
 
 const Input = () => {
@@ -15,7 +15,7 @@ const {text} = useSelector(state => state.createState)
   
   return (
     <div> 
-       <input value={text} onChange={(e)=> dispatch(e.target.value)} />
+       <input value={text} onChange={(e)=> dispatch(updateAC(e.target.value))} />
       <button onClick={create}>+</button>
       </div>
   )
